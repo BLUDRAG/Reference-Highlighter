@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a232b0049876e2a45a0928376d0d3a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExampleObjectReference: {fileID: 557625636}
+  ExampleObjectReference: {fileID: 557625638}
   ExampleSpriteReference: {fileID: 21300000, guid: 781083a97bb598142bee7fe6d3f4c1c1,
     type: 3}
   ExampleCameraReference: {fileID: 1095709969}

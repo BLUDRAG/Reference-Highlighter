@@ -33,6 +33,7 @@ namespace ReferenceHighlighter
         private Object               _lastObjectReference = null;
         private List<(Object, bool)> _objectStack         = new List<(Object, bool)>();
         private int                  _stackIndex          = -1;
+        private Vector2              _scrollPosition      = Vector2.zero;
 
         #endregion
 
@@ -102,9 +103,15 @@ namespace ReferenceHighlighter
                     EditorGUILayout.ToggleLeft("Auto Update", ReferenceHighlighter.AutoUpdateReference,
                                                GUILayout.MaxWidth(90f));
             }
-
+            
             _referenceEditor.DrawHeader();
-            _referenceEditor.DrawDefaultInspector();
+
+            using(EditorGUILayout.ScrollViewScope sScope = new EditorGUILayout.ScrollViewScope(_scrollPosition))
+            {
+                _scrollPosition = sScope.scrollPosition;
+                
+                _referenceEditor.OnInspectorGUI();
+            }
         }
 
         private void OnDestroy()
