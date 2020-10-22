@@ -3,7 +3,7 @@ Highlights most object references within the Hierarchy and Project windows.
 
 # Releases
 
-**[Reference Highlighter v1](https://i.imgur.com/Q2M77Oy.gif)**
+**[Reference Highlighter v1](https://github.com/BLUDRAG/Reference-Highlighter/releases/tag/v1)**
 
 # Description
 
