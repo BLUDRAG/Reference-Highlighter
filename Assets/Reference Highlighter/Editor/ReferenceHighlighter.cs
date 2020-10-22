@@ -25,9 +25,9 @@ namespace ReferenceHighlighter
         private static Texture2D                          _targetReferenceTexture;
         private static Texture2D                          _highlightTexture;
         private static HashSet<int>                       _currentHierarchyReferences = new HashSet<int>();
-        private static HashSet<string>                       _currentProjectReferences = new HashSet<string>();
-        private static FieldInfo                          eventCallbackInfo  = null;
-        private static EditorApplication.CallbackFunction eventCallback      = null;
+        private static HashSet<string>                    _currentProjectReferences   = new HashSet<string>();
+        private static FieldInfo                          eventCallbackInfo           = null;
+        private static EditorApplication.CallbackFunction eventCallback               = null;
 
         #endregion
 
@@ -160,10 +160,10 @@ namespace ReferenceHighlighter
 
                     AssetDatabase.TryGetGUIDAndLocalFileIdentifier(_lastObjectReference, out string referenceGUID,
                                                                    out long _);
-                    
+
                     GUI.DrawTexture(rect, guid == referenceGUID
-                                        ? _targetReferenceTexture
-                                        : _highlightTexture);
+                                              ? _targetReferenceTexture
+                                              : _highlightTexture);
 
                     rect.y -= 1f;
 
@@ -188,7 +188,7 @@ namespace ReferenceHighlighter
                                                            out long _);
 
             _currentProjectReferences.Add(referenceGUID);
-            
+
             string path = AssetDatabase.GUIDToAssetPath(referenceGUID);
 
             if(Path.GetFileName(path) != "Assets")

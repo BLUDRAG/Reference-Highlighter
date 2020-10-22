@@ -33,58 +33,55 @@ namespace ReferenceHighlighter
                                           position, property, label
                                       });
 
-            Event current                 = Event.current;
-            bool  requestHierarchyRepaint = false;
+            Event current = Event.current;
 
-            if(position.Contains(current.mousePosition))
+            if(current.type == EventType.Repaint)
             {
-                if(!_currentlyMousingOver)
+                if(position.Contains(current.mousePosition))
                 {
-                    _currentlyMousingOver = true;
-                    _totalMouseOvers++;
-                }
-
-                if(property.objectReferenceValue)
-                {
-                    ReferenceHighlighter.ObjectReference   = property.objectReferenceValue;
-                    ReferenceHighlighter.IsHierarchyObject = !AssetDatabase.Contains(property.objectReferenceValue);
-
-                    if(ReferenceHighlighter.IsHierarchyObject)
+                    if(!_currentlyMousingOver)
                     {
-                        EditorApplication.RepaintHierarchyWindow();
-                    }
-                    else
-                    {
-                        EditorApplication.RepaintProjectWindow();
+                        _currentlyMousingOver = true;
+                        _totalMouseOvers++;
+
+                        if(property.objectReferenceValue)
+                        {
+                            ReferenceHighlighter.ClearReferences();
+                            ReferenceHighlighter.ObjectReference   = property.objectReferenceValue;
+                            ReferenceHighlighter.IsHierarchyObject = !AssetDatabase.Contains(property.objectReferenceValue);
+
+                            EditorApplication.RepaintHierarchyWindow();
+                            EditorApplication.RepaintProjectWindow();
+                        }
                     }
                 }
-            }
-            else
-            {
-                if(_currentlyMousingOver)
+                else
                 {
-                    _currentlyMousingOver = false;
-                    _totalMouseOvers--;
-                }
-
-                if(_totalMouseOvers <= 0)
-                {
-                    if(ReferenceHighlighterWindow.Visible)
+                    if(_currentlyMousingOver)
                     {
-                        ReferenceHighlighter.ClearReferences();
-                        
-                        ReferenceHighlighterWindow window = EditorWindow.GetWindow<ReferenceHighlighterWindow>();
-
-                        ReferenceHighlighter.ObjectReference   = window.CurrentStackReference.Item1;
-                        ReferenceHighlighter.IsHierarchyObject = window.CurrentStackReference.Item2;
+                        _currentlyMousingOver = false;
+                        _totalMouseOvers--;
                     }
-                    else
-                    {
-                        ReferenceHighlighter.ObjectReference = null;
-                        ReferenceHighlighter.ClearReferences();
 
-                        EditorApplication.RepaintHierarchyWindow();
-                        EditorApplication.RepaintProjectWindow();
+                    if(_totalMouseOvers <= 0)
+                    {
+                        if(ReferenceHighlighterWindow.Visible)
+                        {
+                            ReferenceHighlighter.ClearReferences();
+
+                            ReferenceHighlighterWindow window = EditorWindow.GetWindow<ReferenceHighlighterWindow>();
+
+                            ReferenceHighlighter.ObjectReference   = window.CurrentStackReference.Item1;
+                            ReferenceHighlighter.IsHierarchyObject = window.CurrentStackReference.Item2;
+                        }
+                        else
+                        {
+                            ReferenceHighlighter.ObjectReference = null;
+                            ReferenceHighlighter.ClearReferences();
+
+                            EditorApplication.RepaintHierarchyWindow();
+                            EditorApplication.RepaintProjectWindow();
+                        }
                     }
                 }
             }

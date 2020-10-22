@@ -52,7 +52,10 @@ namespace ReferenceHighlighter
 
             if(current.type == EventType.MouseEnterWindow)
             {
-                ReferenceHighlighter.ObjectReference = _lastObjectReference;
+                ReferenceHighlighter.ClearReferences();
+
+                ReferenceHighlighter.ObjectReference   = CurrentStackReference.Item1;
+                ReferenceHighlighter.IsHierarchyObject = CurrentStackReference.Item2;
 
                 if(ReferenceHighlighter.IsHierarchyObject)
                 {
